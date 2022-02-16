@@ -4,9 +4,7 @@ import { MarqueeText } from "./components/MarqueeText";
 const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <MarqueeText text="hogefuga" />
-      </header>
+      <MarqueeText text="hogefuga" />
     </div>
   );
 };

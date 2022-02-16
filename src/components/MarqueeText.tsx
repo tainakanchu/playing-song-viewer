@@ -5,5 +5,5 @@ type Props = {
 };
 
 export const MarqueeText: React.VFC<Props> = (props) => {
-  return <Marquee>{props.text}</Marquee>;
+  return <Marquee speed={30}>{props.text}</Marquee>;
 };
