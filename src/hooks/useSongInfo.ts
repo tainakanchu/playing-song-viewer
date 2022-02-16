@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { IcecastStats } from "../types/IceCast";
+import { IcecastStats } from "../types";
 
 const fetchUrl = "http://localhost:3000/data/sample.json";
 

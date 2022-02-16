@@ -1,6 +1,6 @@
 import "./App.css";
-import { MarqueeText } from "./components/MarqueeText";
-import { useIceCastStats } from "./hooks/useSongInfo";
+import { MarqueeText } from "./components";
+import { useIceCastStats } from "./hooks";
 
 const App = () => {
   const iceCastStats = useIceCastStats();
