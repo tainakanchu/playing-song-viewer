@@ -9,9 +9,14 @@ export const useIceCastStats = () => {
 
   useEffect(() => {
     const handleFetchJson = () => {
-      axios.get<IcecastStats>(fetchUrl).then((response) => {
-        setIceCastStats(response.data);
-      });
+      axios
+        .get<IcecastStats>(fetchUrl)
+        .then((response) => {
+          setIceCastStats(response.data);
+        })
+        .catch((e) => {
+          return null;
+        });
     };
 
     const timeout = setTimeout(handleFetchJson, 1000);
