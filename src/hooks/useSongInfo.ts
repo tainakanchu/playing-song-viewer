@@ -4,7 +4,7 @@ import { IcecastStats } from "../types";
 
 const fetchUrl = "http://localhost:3000/data/sample.json";
 
-export const useIceCastStats = () => {
+export const useSongInfo = () => {
   const [iceCastStats, setIceCastStats] = useState<IcecastStats | null>(null);
 
   useEffect(() => {
@@ -28,5 +28,5 @@ export const useIceCastStats = () => {
     return handleClearTimeout;
   }, [iceCastStats]);
 
-  return iceCastStats;
+  return iceCastStats?.icestats.source;
 };
