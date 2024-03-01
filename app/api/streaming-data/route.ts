@@ -1,4 +1,4 @@
-import { IcecastStats } from "@/types";
+import {IcecastStats} from "@/types";
 
 /**
  *
@@ -22,15 +22,15 @@ export const GET = async () => {
       },
     });
   } catch (error) {
-    return new Response("Error fetching data", { status: 500 });
+    return new Response("Error fetching data", {status: 500});
   }
 };
 
 const handleFetchIcecastStats = async () => {
-  const result = await fetch(icecastServerStatusJsonUrl, { cache: "no-store" })
+  const result = await fetch(icecastServerStatusJsonUrl, {cache: "no-store"})
     .then(
       // FIXME: as のキャストでなくしたい
-      (response) => response.json() as Promise<IcecastStats>
+      (response) => response.json() as Promise<IcecastStats>,
     )
     .catch((error) => {
       console.error("Error fetching data", error);

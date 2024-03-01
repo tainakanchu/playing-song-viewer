@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { IcecastStats, IcecastStatsStreaming } from "../types";
+import {useEffect, useState} from "react";
+import {IcecastStats, IcecastStatsStreaming} from "../types";
 
 const fetchUrl = "api/streaming-data";
 
@@ -18,7 +18,7 @@ export const useSongInfo = (): SongInfo => {
       fetch(fetchUrl)
         .then(
           // FIXME: as のキャストでなくしたい
-          (response) => response.json() as Promise<IcecastStats>
+          (response) => response.json() as Promise<IcecastStats>,
         )
         .then((data) => {
           setIceCastStats(data);
@@ -48,7 +48,7 @@ export const useSongInfo = (): SongInfo => {
   }
 
   if (isIcecastStatsStreaming(iceCastStats)) {
-    const { artist, title } = iceCastStats.icestats.source;
+    const {artist, title} = iceCastStats.icestats.source;
 
     if (artist && title) {
       return {
@@ -76,7 +76,7 @@ export const useSongInfo = (): SongInfo => {
 };
 
 const isIcecastStatsStreaming = (
-  stats: IcecastStats
+  stats: IcecastStats,
 ): stats is IcecastStatsStreaming => {
   return stats.icestats.hasOwnProperty("source");
 };

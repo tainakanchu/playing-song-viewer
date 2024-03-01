@@ -1,4 +1,4 @@
-import { SongInfo } from "./components/SongInfo";
+import {SongInfo} from "./components/SongInfo";
 
 export default function Home() {
   return (
