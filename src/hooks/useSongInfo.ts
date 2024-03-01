@@ -28,7 +28,7 @@ export const useSongInfo = (): SongInfo => {
         })
         .catch((error) => {
           console.error("Error fetching data", error);
-          setIceCastStats(null);
+          if (iceCastStats !== null) setIceCastStats(null);
         });
     };
 
