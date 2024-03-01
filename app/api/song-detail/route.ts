@@ -31,8 +31,6 @@ export const GET = async (request: NextRequest) => {
 
   console.log("💖pattern", patternWithArtist);
 
-  console.log("💖glob");
-
   try {
     const results = await glob([patternWithArtist, patternOnlyTitle]);
 
