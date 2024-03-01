@@ -1,4 +1,5 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
+import useSWR from "swr";
 import {IcecastStats, IcecastStatsStreaming} from "../types";
 
 const fetchUrl = "api/streaming-data";
@@ -13,33 +14,29 @@ type SongInfo = {
 export const useSongInfo = (): SongInfo => {
   const [iceCastStats, setIceCastStats] = useState<IcecastStats | null>(null);
 
-  useEffect(() => {
-    const handleFetchJson = () => {
-      fetch(fetchUrl)
-        .then(
-          // FIXME: as のキャストでなくしたい
-          (response) => response.json() as Promise<IcecastStats>,
-        )
-        .then((data) => {
-          // 全く同一の場合は更新しない
-          if (JSON.stringify(data) !== JSON.stringify(iceCastStats)) {
-            setIceCastStats(data);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching data", error);
-          if (iceCastStats !== null) setIceCastStats(null);
-        });
-    };
-
-    const timeout = setTimeout(handleFetchJson, 1000);
-
-    const handleClearTimeout = () => {
-      clearTimeout(timeout);
-    };
-
-    return handleClearTimeout;
+  const handleFetchJson = useCallback(() => {
+    console.log("💖fetch");
+    fetch(fetchUrl)
+      .then(
+        // FIXME: as のキャストでなくしたい
+        (response) => response.json() as Promise<IcecastStats>,
+      )
+      .then((data) => {
+        // 全く同一の場合は更新しない
+        if (JSON.stringify(data) !== JSON.stringify(iceCastStats)) {
+          console.log("💖set new value");
+          setIceCastStats(data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data", error);
+        if (iceCastStats !== null) setIceCastStats(null);
+      });
   }, [iceCastStats]);
+
+  useSWR(fetchUrl, handleFetchJson, {
+    refreshInterval: 1000,
+  });
 
   if (iceCastStats === null) {
     return {
