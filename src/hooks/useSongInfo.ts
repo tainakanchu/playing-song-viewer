@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IcecastStats, IcecastStatsStreaming } from "../types";
 
-const fetchUrl = "http://localhost:8000/status-json.xsl";
+const fetchUrl = "api/streaming-data";
 
 type SongInfo = {
   status: "fetching" | "error" | "success";
