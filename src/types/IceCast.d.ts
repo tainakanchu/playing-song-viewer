@@ -1,5 +1,5 @@
 export type SongInfo = {
-  artist: string;
+  artist?: string;
   audio_bitrate: number;
   audio_channels: number;
   audio_info: string;
@@ -18,11 +18,11 @@ export type SongInfo = {
   stream_start: string;
   stream_start_iso8601: string;
   subtype: string;
-  title: string;
+  title?: string;
   dummy: null;
 };
 
-export type IcecastStats = {
+export type IcecastStatsBase = {
   icestats: {
     admin: string;
     host: string;
@@ -30,6 +30,19 @@ export type IcecastStats = {
     server_id: string;
     server_start: string;
     server_start_iso8601: string;
+  };
+};
+
+export type IcecastStatsSleeping = IcecastStatsBase & {
+  icestats: {
+    dummy: null;
+  };
+};
+
+export type IcecastStatsStreaming = IcecastStatsBase & {
+  icestats: {
     source: SongInfo;
   };
 };
+
+export type IcecastStats = IcecastStatsSleeping | IcecastStatsStreaming;
