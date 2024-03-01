@@ -27,7 +27,7 @@ export const GET = async () => {
 };
 
 const handleFetchIcecastStats = async () => {
-  const result = await fetch(icecastServerStatusJsonUrl)
+  const result = await fetch(icecastServerStatusJsonUrl, { cache: "no-store" })
     .then(
       // FIXME: as のキャストでなくしたい
       (response) => response.json() as Promise<IcecastStats>
