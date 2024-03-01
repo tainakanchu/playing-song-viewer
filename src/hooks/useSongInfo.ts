@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
-import { IcecastStats } from "../types";
+import { IcecastStats, IcecastStatsStreaming } from "../types";
 
 const fetchUrl = "http://localhost:8000/status-json.xsl";
 
-export const useSongInfo = () => {
+type SongInfo = {
+  status: "fetching" | "error" | "success";
+  title: string;
+  artist: string;
+  errorMsg: string;
+};
+
+export const useSongInfo = (): SongInfo => {
   const [iceCastStats, setIceCastStats] = useState<IcecastStats | null>(null);
 
   useEffect(() => {
@@ -31,5 +38,45 @@ export const useSongInfo = () => {
     return handleClearTimeout;
   }, [iceCastStats]);
 
-  return iceCastStats?.icestats.source;
+  if (iceCastStats === null) {
+    return {
+      status: "fetching",
+      title: "",
+      artist: "",
+      errorMsg: "",
+    };
+  }
+
+  if (isIcecastStatsStreaming(iceCastStats)) {
+    const { artist, title } = iceCastStats.icestats.source;
+
+    if (artist && title) {
+      return {
+        status: "success",
+        title,
+        artist,
+        errorMsg: "",
+      };
+    } else {
+      return {
+        status: "error",
+        title: "",
+        artist: "",
+        errorMsg: "The song is not played now.",
+      };
+    }
+  } else {
+    return {
+      status: "error",
+      title: "",
+      artist: "",
+      errorMsg: "No streaming",
+    };
+  }
+};
+
+const isIcecastStatsStreaming = (
+  stats: IcecastStats
+): stats is IcecastStatsStreaming => {
+  return stats.icestats.hasOwnProperty("source");
 };
