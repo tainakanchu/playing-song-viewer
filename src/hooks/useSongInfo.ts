@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { IcecastStats } from "../types";
 
@@ -9,13 +8,17 @@ export const useSongInfo = () => {
 
   useEffect(() => {
     const handleFetchJson = () => {
-      axios
-        .get<IcecastStats>(fetchUrl)
-        .then((response) => {
-          setIceCastStats(response.data);
+      fetch(fetchUrl)
+        .then(
+          // FIXME: as のキャストでなくしたい
+          (response) => response.json() as Promise<IcecastStats>
+        )
+        .then((data) => {
+          setIceCastStats(data);
         })
-        .catch((e) => {
-          return null;
+        .catch((error) => {
+          console.error("Error fetching data", error);
+          setIceCastStats(null);
         });
     };
 
