@@ -15,21 +15,24 @@ const itunesMediaDirectoryBackSlash = itunesMediaDirectorySlash.replace(
 export const GET = async (request: NextRequest) => {
   const searchParams = request.nextUrl.searchParams;
 
-  const artist = searchParams.get("artist");
-  const longTitle = searchParams.get("title");
+  const rawArtist = searchParams.get("artist");
+  const rawTitle = searchParams.get("title");
 
-  if (!longTitle) {
+  if (!rawTitle) {
     // 曲名がないのはさすがに無理
     return new Response("error", {status: 400});
   }
+  // ; を _ に変換
+  const artist = rawArtist?.replace(/;/g, "_") ?? "";
 
   // itunes が整理したファイルはファイル名が最大36文字なので、余裕をもって32文字で切る
-  const title = longTitle.slice(0, 32);
+  const title = rawTitle.slice(0, 32);
 
   const patternWithArtist = `${itunesMediaDirectoryBackSlash}*${artist}*/**/*${title}*`;
   const patternOnlyTitle = `${itunesMediaDirectoryBackSlash}**/*${title}*`;
 
   console.log("💖pattern", patternWithArtist);
+  console.log("💖pattern", patternOnlyTitle);
 
   try {
     const results = await glob([patternWithArtist, patternOnlyTitle]);
