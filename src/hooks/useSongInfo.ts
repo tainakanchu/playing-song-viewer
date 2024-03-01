@@ -21,7 +21,10 @@ export const useSongInfo = (): SongInfo => {
           (response) => response.json() as Promise<IcecastStats>,
         )
         .then((data) => {
-          setIceCastStats(data);
+          // 全く同一の場合は更新しない
+          if (JSON.stringify(data) !== JSON.stringify(iceCastStats)) {
+            setIceCastStats(data);
+          }
         })
         .catch((error) => {
           console.error("Error fetching data", error);
