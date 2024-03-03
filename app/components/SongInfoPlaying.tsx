@@ -24,8 +24,8 @@ export const SongInfoPlaying: React.FC<Props> = ({title, artist, artwork}) => {
             src={artwork}
             className="rounded-lg shadow-xl shadow-slate-700"
             alt="Album Art"
-            width={512}
-            height={512}
+            width={400}
+            height={400}
           />
 
           <h2 className="text-3xl">{title}</h2>
