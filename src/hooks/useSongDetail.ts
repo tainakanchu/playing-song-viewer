@@ -1,4 +1,3 @@
-import {encode} from "punycode";
 import {useEffect, useState} from "react";
 
 const songDetailEndpoint = "api/song-detail";

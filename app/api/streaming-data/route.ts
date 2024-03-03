@@ -1,12 +1,5 @@
+import {icecastServerStatusJsonUrl} from "@/config";
 import {IcecastStats} from "@/types";
-
-/**
- *
- */
-const icecastServerHost = "http://localhost:8000";
-
-// const icecastServerStatusJsonUrl = `${icecastServerHost}/status-json.xsl`;
-const icecastServerStatusJsonUrl = `${icecastServerHost}/status-json.xsl`;
 
 /**
  * Icecast サーバーにアクセスして、JSONをそのまま返す

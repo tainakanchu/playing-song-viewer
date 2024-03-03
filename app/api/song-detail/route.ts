@@ -1,16 +1,8 @@
+import {itunesMediaDirectory} from "@/config";
 import {NextRequest} from "next/server";
 
 import {glob} from "glob";
 import mm from "music-metadata";
-
-const itunesMediaDirectorySlash =
-  "C:\\Users\\kanch\\Music\\iTunes\\iTunes Media\\Music\\";
-
-// \\ を / に変換
-const itunesMediaDirectoryBackSlash = itunesMediaDirectorySlash.replace(
-  /\\/g,
-  "/",
-);
 
 export const GET = async (request: NextRequest) => {
   const searchParams = request.nextUrl.searchParams;
@@ -28,8 +20,8 @@ export const GET = async (request: NextRequest) => {
   // itunes が整理したファイルはファイル名が最大36文字なので、余裕をもって32文字で切る
   const title = rawTitle.slice(0, 32);
 
-  const patternWithArtist = `${itunesMediaDirectoryBackSlash}*${artist}*/**/*${title}*`;
-  const patternOnlyTitle = `${itunesMediaDirectoryBackSlash}**/*${title}*`;
+  const patternWithArtist = `${itunesMediaDirectory}*${artist}*/**/*${title}*`;
+  const patternOnlyTitle = `${itunesMediaDirectory}**/*${title}*`;
 
   console.log("💖pattern", patternWithArtist);
   console.log("💖pattern", patternOnlyTitle);
