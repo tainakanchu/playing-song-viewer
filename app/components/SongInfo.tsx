@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import {useSongInfo} from "@/hooks";
+import {useSongInfo} from "@/contexts";
 import {SongInfoPlaying} from "./SongInfoPlaying";
 
 export const SongInfo: React.FC = () => {
@@ -11,7 +11,7 @@ export const SongInfo: React.FC = () => {
       <div className="flex flex-col items-center">
         <h1>Something occurred</h1>
         <h2>Unable to fetch song info</h2>
-        <p>{info.errorMsg}</p>
+        <p>{info.message}</p>
       </div>
     );
   }
@@ -24,5 +24,11 @@ export const SongInfo: React.FC = () => {
     );
   }
 
-  return <SongInfoPlaying title={info.title} artist={info.artist} />;
+  return (
+    <SongInfoPlaying
+      title={info.title}
+      artist={info.artist}
+      artwork={info.artworkSrc}
+    />
+  );
 };

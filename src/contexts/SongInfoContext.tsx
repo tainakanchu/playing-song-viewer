@@ -1,3 +1,4 @@
+"use client";
 import {
   createContext,
   useState,
@@ -25,6 +26,11 @@ const defaultProvider: SongInfoFetching = {
 const icecastServerUrl = "api/streaming-data";
 const songDetailEndpoint = "api/song-detail";
 
+const presetImagePathMap = {
+  noImage: "/no_image.svg",
+  loading: "/loading.svg",
+} as const;
+
 const DataContext = createContext<SongInfo>(defaultProvider);
 
 export const useSongInfo = () => {
@@ -39,7 +45,8 @@ export const SongInfoProvider = ({children}: {children: React.ReactNode}) => {
     try {
       const currentStats = await fetch(icecastServerUrl)
         .then((response) => {
-          if (!response.ok) throw new Error("Response is not ok.");
+          if (!response.ok)
+            throw new Error("Response is not ok while fetching icecast.");
           return response.json() as Promise<IcecastStats>;
         })
         .catch((error) => {
@@ -75,8 +82,7 @@ export const SongInfoProvider = ({children}: {children: React.ReactNode}) => {
         status: "success",
         title: title ?? "",
         artist: artist ?? "",
-        // loading
-        artworkSrc: "",
+        artworkSrc: presetImagePathMap.loading,
         message: "Song info fetched successfully.",
       });
     } catch (error) {
@@ -111,7 +117,10 @@ export const SongInfoProvider = ({children}: {children: React.ReactNode}) => {
 
     const detail = await fetch(detailApi)
       .then((response) => {
-        if (!response.ok) throw new Error("Response is not ok.");
+        if (!response.ok)
+          throw new Error(
+            "Response is not ok while fetching icecast while detail api.",
+          );
         return response.json() as Promise<GetSongDetailResponse>;
       })
       .catch((error) => {
@@ -126,8 +135,8 @@ export const SongInfoProvider = ({children}: {children: React.ReactNode}) => {
       });
 
     const artworkSrc = detail.artwork
-      ? `data:image/jpeg;base64,${Buffer.from(detail.artwork).toString("base64")}`
-      : "";
+      ? `data:${detail.artwork.type};base64,${Buffer.from(detail.artwork.data).toString("base64")}`
+      : presetImagePathMap.noImage;
 
     setSongInfo({
       status: "success",

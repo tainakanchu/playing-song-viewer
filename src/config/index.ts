@@ -17,8 +17,6 @@ export const itunesMediaDirectorySlash = env.ITUNES_MEDIA_DIRECTORY;
 export const itunesMediaDirectory =
   itunesMediaDirectorySlash?.replace(/\\/g, "/") ?? "";
 
-console.log("💖itunesMediaDirectory", itunesMediaDirectory);
-
 /**
  * Icecast サーバーのホスト
  *
@@ -32,5 +30,3 @@ export const icecastServerHost = `http://${env.ICECAST_SERVER_HOST}:${env.ICECAS
  * @example "http://localhost:8000/status-json.xsl"
  */
 export const icecastServerStatusJsonUrl = `${icecastServerHost}/status-json.xsl`;
-
-console.log("💖icecastServerStatusJsonUrl", icecastServerStatusJsonUrl);
