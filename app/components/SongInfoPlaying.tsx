@@ -20,7 +20,13 @@ export const SongInfoPlaying: React.FC<Props> = ({title, artist, artwork}) => {
       <h1 className="text-5xl font-bold">Now Playing!</h1>
       <div className="flex items-center gap-8">
         <div className="flex w-[32rem] flex-col content-around items-center gap-2">
-          <Image src={artwork} alt="Album Art" width={512} height={512} />
+          <Image
+            src={artwork}
+            className="rounded-lg shadow-xl shadow-slate-700"
+            alt="Album Art"
+            width={512}
+            height={512}
+          />
 
           <h2 className="text-3xl">{title}</h2>
           <h3 className="text-xl">{`by ${artist}`}</h3>
