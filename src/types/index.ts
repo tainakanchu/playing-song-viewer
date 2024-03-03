@@ -1,1 +1,1 @@
-export * from "./IceCast";
+export * from "./Icecast";

@@ -4,6 +4,11 @@ import {NextRequest} from "next/server";
 import {glob} from "glob";
 import mm from "music-metadata";
 
+export type GetSongDetailResponse = {
+  artwork: Buffer | null;
+  albumArtist: string;
+};
+
 export const GET = async (request: NextRequest) => {
   const searchParams = request.nextUrl.searchParams;
 
@@ -46,7 +51,9 @@ export const GET = async (request: NextRequest) => {
       albumArtist: metadata.common.albumartist ?? metadata.common.artist ?? "",
     };
 
-    return new Response(JSON.stringify(result), {});
+    return new Response(JSON.stringify(result), {
+      status: 200,
+    });
   } catch (error) {
     console.error("💖error", error);
 

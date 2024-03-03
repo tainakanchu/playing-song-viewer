@@ -1,6 +1,8 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 import useSWR from "swr";
-import {IcecastStats, IcecastStatsStreaming} from "../types";
+
+import {IcecastStats} from "@/types";
+import {isIcecastStatsStreaming} from "@/utils";
 
 const fetchUrl = "api/streaming-data";
 
@@ -15,7 +17,6 @@ export const useSongInfo = (): SongInfo => {
   const [iceCastStats, setIceCastStats] = useState<IcecastStats | null>(null);
 
   const handleFetchJson = useCallback(() => {
-    console.log("💖fetch");
     fetch(fetchUrl)
       .then(
         // FIXME: as のキャストでなくしたい
@@ -73,10 +74,4 @@ export const useSongInfo = (): SongInfo => {
       errorMsg: "No streaming",
     };
   }
-};
-
-const isIcecastStatsStreaming = (
-  stats: IcecastStats,
-): stats is IcecastStatsStreaming => {
-  return stats.icestats.hasOwnProperty("source");
 };

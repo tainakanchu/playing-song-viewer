@@ -1,4 +1,4 @@
-export type SongInfo = {
+export type IcecastSongInfo = {
   artist?: string;
   audio_bitrate: number;
   audio_channels: number;
@@ -41,7 +41,7 @@ export type IcecastStatsSleeping = IcecastStatsBase & {
 
 export type IcecastStatsStreaming = IcecastStatsBase & {
   icestats: {
-    source: SongInfo;
+    source: IcecastSongInfo;
   };
 };
 
