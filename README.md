@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# playing-song-viewer
+This is a Next.js application that retrieves some information of the currently playing song from the Icecast server and displays it.
+It is mainly intended for use with Traktor Pro.
 
-## Getting Started
+## Features
+- Via the Icecast server, information about the song currently playing on Traktor DJ can be displayed in the browser.
+- The artwork of the currently playing song can be displayed.
+  - This feature uses metadata embedded in the music data, so it is only available for files where such data exists.
+  - It is assumed that iTunes has automatically sorted the songs into directories; otherwise, different song artwork may be displayed or files may not be found.
 
-First, run the development server:
+## Preparation
+### Install applications
+Download the installer appropriate for your OS from [Download — Icecast](https://icecast.org/download/) and install it.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+To build and run this project, you need to have installed Node.js, and pnpm.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Of course, in order to receive streams from Traktor DJ, you also need to install Traktor DJ :)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Setup Traktor DJ
+Open the settings of Traktor DJ and set the broadcast settings as shown in the image below.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![Traktor Pro setting image](docs/images/image.png)
 
-## Learn More
+Below is the default value of the Icecast server. If you have changed the port number or password, please change it accordingly.
 
-To learn more about Next.js, take a look at the following resources:
+- Address : `localhost`
+- Port : `8000`
+- Password : `hackme`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Build this project
+1. Clone this repository.
+2. Install the dependencies with `pnpm install`.
+3. Config `.env` file. Basically, you only need to set `ITUNES_MEDIA_DIRECTORY` to the directory where your music files are stored. Even if this directory is not sure, you only cannot display the artwork of the currently playing song.
+4. Build with `pnpm build`.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Start application
+1. Start Icecast server. If your OS is Windows, just open the `icecast.bat`.
+2. `pnpm start` to start the server.
+3. Open Traktor Pro and start broadcasting.
+![start streaming](docs/images/image-1.png)
+4. Access http://localhost:3000 and you should see the song information.
+5. If you need to access from another device, you need to access with the IP address of the device where the server is running. For example, http://192.168.1.10:3000.
