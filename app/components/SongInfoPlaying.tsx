@@ -8,11 +8,12 @@ type Props = {
   artwork: string;
 };
 
+const googleSearchBasePath = "https://www.google.com/search?q=";
+
 export const SongInfoPlaying: React.FC<Props> = ({title, artist, artwork}) => {
   const spotifySearchUriEncoded = useMemo(() => {
-    const spotifySearchBaseUri = "spotify:search:artist:";
-    const spotifySearchUri = `${spotifySearchBaseUri}${artist} ${title}`;
-    return encodeURI(spotifySearchUri);
+    const googleSearchUrl = `${googleSearchBasePath}${artist} ${title}`;
+    return encodeURI(googleSearchUrl);
   }, [artist, title]);
 
   return (
@@ -35,7 +36,7 @@ export const SongInfoPlaying: React.FC<Props> = ({title, artist, artwork}) => {
           <div className="bg-white p-2">
             <QRCode value={spotifySearchUriEncoded} size={144} bgColor="#fff" />
           </div>
-          <p className="text-sm">View on Spotify</p>
+          <p className="text-sm">Search with Google</p>
         </div>
       </div>
     </div>
