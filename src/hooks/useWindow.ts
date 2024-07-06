@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 
+type Orientation = 'landscape' | 'portrait';
+
 export const useWindow = () => {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
+
+  const orientation: Orientation = width > height ? 'landscape' : 'portrait';
 
   useEffect(() => {
     const updateWindowSize = () => {
@@ -17,6 +21,8 @@ export const useWindow = () => {
   }, []);
 
   return {
-    width, height
+    width,
+    height,
+    orientation
   };
 };

@@ -17,14 +17,16 @@ export const SongInfoPlaying: React.FC<Props> = ({title, artist, artwork}) => {
     return encodeURI(googleSearchUrl);
   }, [artist, title]);
 
-  const {width,height} = useWindow();
+  const {width, height, orientation} = useWindow();
+
+  const arrangement = orientation === "landscape" ? "flex-row" : "flex-col";
 
   const artworkSize = Math.min(width, height) * 0.6;
 
   return (
     <div className="flex w-full flex-col items-center gap-8">
       <h1 className="text-3xl font-bold">Now Playing!</h1>
-      <div className="flex items-center gap-8">
+      <div className={`flex items-center gap-8 ${arrangement}`}>
         <div className="flex w-[32rem] flex-col content-around items-center gap-2">
           <Image
             src={artwork}
