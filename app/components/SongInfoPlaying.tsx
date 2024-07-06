@@ -1,6 +1,7 @@
 import React, {useMemo} from "react";
 import Image from "next/image";
 import QRCode from "react-qr-code";
+import { useWindow } from '../../src/hooks/useWindow';
 
 type Props = {
   title: string;
@@ -16,21 +17,25 @@ export const SongInfoPlaying: React.FC<Props> = ({title, artist, artwork}) => {
     return encodeURI(googleSearchUrl);
   }, [artist, title]);
 
+  const {width,height} = useWindow();
+
+  const artworkSize = Math.min(width, height) * 0.6;
+
   return (
     <div className="flex w-full flex-col items-center gap-8">
-      <h1 className="text-5xl font-bold">Now Playing!</h1>
+      <h1 className="text-3xl font-bold">Now Playing!</h1>
       <div className="flex items-center gap-8">
         <div className="flex w-[32rem] flex-col content-around items-center gap-2">
           <Image
             src={artwork}
             className="rounded-lg shadow-xl shadow-slate-700"
             alt="Album Art"
-            width={400}
-            height={400}
+            width={artworkSize}
+            height={artworkSize}
           />
 
-          <h2 className="text-3xl">{title}</h2>
-          <h3 className="text-xl">{`by ${artist}`}</h3>
+          <h2 className="text-2xl">{title}</h2>
+          <h3 className="text-base">{`by ${artist}`}</h3>
         </div>
         <div className="flex w-36 flex-col items-center gap-2 ">
           <div className="bg-white p-2">
